@@ -1,0 +1,12 @@
+b33de11ffd1903efda7bbafa880cf806 *DESCRIPTION
+a6285a66573f0e66d1247e0cba22d0f2 *NAMESPACE
+78ef277eee99e171f5a4ac1c7d141f41 *R/sea.test-function.R
+935fb6e9c019ccad7116f98ca68c625b *R/sea.top-function.R
+843f627fcf1c2c2ada256ca0169eab13 *R/set.test-function.R
+50fc645f0d16e0e237d826bc69396960 *R/sysdata.rda
+4a7e372270d1c5f4d35a4483f48e3cec *R/tdphat-function.R
+17d9cb64a98a0c8a22154644f55f0231 *man/rSEA-package.Rd
+376dd29acc9f5c936edfc62e2455df97 *man/sea.test-function.Rd
+78ed652ab65f022832ecfcead77b6637 *man/sea.top-function.Rd
+ef5ade878c4d69b87b11d9db2eaace49 *man/set.test-function.Rd
+25402708c931d8b5a48d78ca8d02fab8 *man/tdphat-function.Rd
