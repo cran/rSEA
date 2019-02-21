@@ -14,7 +14,7 @@ set.test(hommel, ix, testype, testvalue)}
   \item{hommel}{The hommel object for the complete multiple testing problem.}
   \item{ix}{The selection of features defining the feature-set. Any selector that works on the original vector of p-values (index, negative index, logical, names) is allowed. If ix is missing, the total proportion  of active features in the dataset is estimated.}
   \item{testype}{Type of the test, namely "selfcontained" or "competitive". Choosing the self-contained option will set the threshold to zero. Choosing the competitive option without a testvalue, will set the threshold to the overall estimated proportion of true hypotheses.}
-  \item{testvalue}{Setting this value to c along with testype="competitive" will lead to testing the null hypothesis against a threshold c.}
+  \item{testvalue}{Setting this value to c along with testype="competitive" will lead to testing the null hypothesis against a threshold c. Note: this value needs to be a proportion.}
 
 }
 

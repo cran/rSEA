@@ -27,10 +27,10 @@ total_tdp<- ceiling(hommel::tdp(hommel)*n)/n
   if (testype=="selfcontained")
     thr<-0
   if (testype=="competitive" & !missing(testvalue))
-    thr<-testvalue*n
+    thr<-testvalue
   if (testype=="competitive" & missing(testvalue))
     {
-    thr=total_tdp*n
+    thr=total_tdp
     }
 
   adjustedp <- hommel::localtest(hommel, ix, tdp=thr)
