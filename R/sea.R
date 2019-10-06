@@ -122,8 +122,7 @@ SEA=sea<- function(pvalue, featureIDs, data, pathlist, select,
 
       paths<-pathlist[select]
       SEA_chart<-SEA_chart[select,]
-
-      } else paths<-pathlist
+        } else paths<-pathlist
 
     if(sum(geneid %in% unlist(paths))==0) stop(paste("Pathway should match the data!"))
 
@@ -186,6 +185,7 @@ SEA=sea<- function(pvalue, featureIDs, data, pathlist, select,
 
 
   SEA_chart <- Filter(function(x) !(all(x=="")), SEA_chart)
+  row.names(SEA_chart)<-NULL
 
   return(SEA_chart)
 

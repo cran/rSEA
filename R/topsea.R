@@ -19,14 +19,9 @@
 #' @param cover An optional threshold for coverage, whcih muct be a real number between 0 and 1.
 #' If specified, feature-sets with a coverage lower than or equal to this value are removed.
 #'
-#' @param digits Optional integer value. Number of decimal places to be shown in the output for numeric columns.
-#' Default is the value defined by the local R options
-#'
-#' @param scientific Logical. Optional argument, if TRUE, the values are returned in scientific notofication as defined in
-#' \code{\link{format}}  function. Default is \code{FALSE}
 #'
 #'
-#' @return Returns a subset of SEA_chart sorted and refined according to the arguments
+#' @return Returns a subset of SEA_chart sorted according to the arguments
 #'
 #'
 #' @author Mitra Ebrahimpoor
@@ -41,23 +36,14 @@
 #' and Competitive Methods, Briefings in Bioinformatics,bbz074
 #'
 #' @examples
+#' #See the examples for \code{\link{SEA}}
 #'
-#' \dontrun{
-#' ##Generate a vector of pvalues
-#' set.seed(102)
-#'
-#' m<- 100
-#' pvalues <- c(runif(0.5 * m,0,0.02), runif(0.5*m,0,1))
-#' # Use Unified null to test the proportion of active features against c=0
-#' set.test (hom, 1:3, "selfcontained")
-#' }
 #' @export
 #'
 #' @importFrom hommel hommel tdp localtest
 #'
 #'
-topSEA=topsea<- function(object, by, thresh=NULL, descending=TRUE, n=20, cover,
-                         digits= getOption("digits"), scientific=FALSE){
+topSEA=topsea<- function(object, by, thresh=NULL, descending=TRUE, n=20, cover){
 
   #save the call to function
   cl <- match.call()
@@ -80,7 +66,7 @@ topSEA=topsea<- function(object, by, thresh=NULL, descending=TRUE, n=20, cover,
 
   #remove low cover
       if(!missing(cover)){
-        object<-with(object, object[round(coverage,4) >= cover,])
+        object<-with(object, object[round(Coverage,4) >= cover,])
           if(nrow(object)==0)
              stop('Nothing selected, modify Cover value!')}
 
@@ -99,12 +85,6 @@ topSEA=topsea<- function(object, by, thresh=NULL, descending=TRUE, n=20, cover,
   #select the top
       if(nrow(object)>n)
         SEA_top<-SEA_top[1:n,]
-
-      SEA_top<-round(SEA_top,digits)
-
-      if(scientific==TRUE) SEA_top<-format(SEA_top, scientific=TRUE)
-
-      SEA_top<-apply(SEA_top, 2, function(a) as.numeric(a))
 
 
   return(SEA_top)

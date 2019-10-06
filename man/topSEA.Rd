@@ -4,8 +4,7 @@
 \alias{topSEA}
 \title{topSEA}
 \usage{
-topSEA(object, by, thresh = NULL, descending = TRUE, n = 20, cover,
-  digits = getOption("digits"), scientific = FALSE)
+topSEA(object, by, thresh = NULL, descending = TRUE, n = 20, cover)
 }
 \arguments{
 \item{object}{A SEA-chart object which is the output of \code{SEA} function}
@@ -22,15 +21,9 @@ will be thresholded accordingly.}
 
 \item{cover}{An optional threshold for coverage, whcih muct be a real number between 0 and 1.
 If specified, feature-sets with a coverage lower than or equal to this value are removed.}
-
-\item{digits}{Optional integer value. Number of decimal places to be shown in the output for numeric columns.
-Default is the value defined by the local R options}
-
-\item{scientific}{Logical. Optional argument, if TRUE, the values are returned in scientific notofication as defined in
-\code{\link{format}}  function. Default is \code{FALSE}}
 }
 \value{
-Returns a subset of SEA_chart sorted and refined according to the arguments
+Returns a subset of SEA_chart sorted according to the arguments
 }
 \description{
 returns a permutation  of SEA-chart which rearranges
@@ -38,16 +31,8 @@ the feature-sets according to the selected argument into ascending or
 descending order.
 }
 \examples{
+#See the examples for \\code{\\link{SEA}}
 
-\dontrun{
-##Generate a vector of pvalues
-set.seed(102)
-
-m<- 100
-pvalues <- c(runif(0.5 * m,0,0.02), runif(0.5*m,0,1))
-# Use Unified null to test the proportion of active features against c=0
-set.test (hom, 1:3, "selfcontained")
-}
 }
 \references{
 Mitra Ebrahimpoor, Pietro Spitali, Kristina Hettne, Roula Tsonaka, Jelle Goeman,
