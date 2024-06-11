@@ -4,9 +4,18 @@
 \alias{SEA}
 \title{SEA}
 \usage{
-SEA(pvalue, featureIDs, data, pathlist, select, tdphat = TRUE,
-  selfcontained = TRUE, competitive = TRUE, thresh = NULL,
-  alpha = 0.05)
+SEA(
+  pvalue,
+  featureIDs,
+  data,
+  pathlist,
+  select,
+  tdphat = TRUE,
+  selfcontained = TRUE,
+  competitive = TRUE,
+  thresh = NULL,
+  alpha = 0.05
+)
 }
 \arguments{
 \item{pvalue}{Vector of p-values. It can be the name of the covariate representing the Vector of
@@ -77,9 +86,8 @@ S2
 #sort the list by competitve p-value and select top 2
 topSEA(S2, by=Comp.adjP, descending = FALSE, n=2)
 
-#make an enrichment plot based on TDP.estimated of te pathways
-#here pathways with more than 20\% active signials will be identified
-plotSEA(S1,threshold = 0.20,n=3)
+#make an enrichment plot based on TDP.estimated of pathways
+plotSEA(S1,n=3)
 }
 }
 \references{

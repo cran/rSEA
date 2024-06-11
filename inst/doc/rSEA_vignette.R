@@ -1,9 +1,9 @@
-## ---- echo = FALSE, message = FALSE--------------------------------------
+## ----echo = FALSE, message = FALSE--------------------------------------------
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
 library(rSEA)
 
-## ----data_sim------------------------------------------------------------
+## ----data_sim-----------------------------------------------------------------
 
 set.seed(753) #to get the same result as you repeat
 names<-sapply(1:300, function(i) paste0( combn(letters, 2)[,i], collapse = "")) # a vector of two-letter names
@@ -16,20 +16,20 @@ pathsize<-floor(runif(50, 10, 60)) #generate a vector of random pathway sizes be
 mocklist<-lapply(pathsize,function(x) sample(names,size=x)) # create a pseudo list of pathways
 
 
-## ----setTDP_chunk1-------------------------------------------------------
+## ----setTDP_chunk1------------------------------------------------------------
 require(rSEA) #load rSEA
 #setTDP(pvals, ids, data=simdat) 
 
 setTDP(simdat$pvals, simdat$ids) 
 
 
-## ----setTDP_chunk2-------------------------------------------------------
+## ----setTDP_chunk2------------------------------------------------------------
 require(rSEA) #load rSEA
 
 setTDP(simdat$pvals, simdat$ids, set=mocklist[[3]]) 
 
 
-## ----setTest_chunk1------------------------------------------------------
+## ----setTest_chunk1-----------------------------------------------------------
 require(rSEA) 
 
 #selfcontained test of all features
@@ -41,18 +41,18 @@ setTest(pvals, ids, data=simdat, set=mocklist[[3]], testype = "competitive")
 #custom comp. test
 setTest(pvals, ids, data=simdat, set=mocklist[[3]], testype = "competitive", testvalue = 0.5) 
 
-## ----SEA_chunk1----------------------------------------------------------
+## ----SEA_chunk1---------------------------------------------------------------
 require(rSEA) #load rSEA
 testchart1<-SEA(simdat$pvals, simdat$ids, pathlist = mocklist)
 head(testchart1)
 
-## ----SEA_chunk2----------------------------------------------------------
+## ----SEA_chunk2---------------------------------------------------------------
 require(rSEA) #load rSEA
 testchart2<-SEA(pvals, ids, data=simdat, pathlist = mocklist, select =11:30)
 testchart2
 
 
-## ----setTest_chunk2------------------------------------------------------
+## ----setTest_chunk2-----------------------------------------------------------
 require(rSEA) #load rSEA
 lap<-union(mocklist[[8]], mocklist[[9]]) # the overlapping feature-set
 length(lap)
@@ -62,7 +62,7 @@ setTest(pvals, ids, data=simdat, set =lap , testype = "selfcontained")
 setTest(pvals, ids, data=simdat, set =lap , testype = "competitive", testvalue = 0.1) 
 
 
-## ----SEA_chunk3----------------------------------------------------------
+## ----SEA_chunk3---------------------------------------------------------------
 require(rSEA) #load rSEA
 testchart3<-topSEA(testchart1) #sorted by large TDP.estimates
 head(testchart3)
@@ -74,7 +74,7 @@ sigchart<-topSEA(testchart1, by=Comp.adjP, thresh = 0.05) #keep only significant
 sigchart2<-topSEA(sigchart, by=Size, descending=TRUE) #sorted by pathway size
 head(sigchart2)
 
-## ----pathlist_chunk1, eval = FALSE---------------------------------------
+## ----pathlist_chunk1, eval = FALSE--------------------------------------------
 #  
 #  if (!requireNamespace("BiocManager", quietly = TRUE))
 #      install.packages("BiocManager")
@@ -85,7 +85,7 @@ head(sigchart2)
 #  #source("http://bioconductor.org/biocLite.R")
 #  #biocLite(c("limma","edgeR"))
 
-## ----pathlist_chunk2, eval = FALSE---------------------------------------
+## ----pathlist_chunk2, eval = FALSE--------------------------------------------
 #  library(hgu133a.db)
 #  ls("package:hgu133a.db")
 #  columns(hgu133a.db)
@@ -96,7 +96,7 @@ head(sigchart2)
 #  head(gobimap)
 #  
 
-## ----pathlist_chunk3, eval = FALSE---------------------------------------
+## ----pathlist_chunk3, eval = FALSE--------------------------------------------
 #  
 #  GOIDs<-unique(gobimap$go_id)
 #  GOList<-lapply(GOIDs,
@@ -112,7 +112,7 @@ head(sigchart2)
 #  
 #  #save(GOList, file="GOList.RData")
 
-## ----pathlist_chunk4, eval = FALSE---------------------------------------
+## ----pathlist_chunk4, eval = FALSE--------------------------------------------
 #  if (!requireNamespace("BiocManager", quietly = TRUE))
 #      install.packages("BiocManager")
 #  
@@ -121,9 +121,8 @@ head(sigchart2)
 #  library(org.Mm.eg.db)
 #  ls("package:org.Mm.eg.db")
 #  columns(org.Hs.eg.db)
-#  
 
-## ----pathlist_chunk5, eval = FALSE---------------------------------------
+## ----pathlist_chunk5, eval = FALSE--------------------------------------------
 #  
 #  
 #  uniKeys <- keys(org.Hs.eg.db, keytype="ENTREZID")
@@ -152,7 +151,7 @@ head(sigchart2)
 #  #save(KEGGList, file="KEGGList.RData")
 #  
 
-## ----pathlist_chunk6, eval = FALSE---------------------------------------
+## ----pathlist_chunk6, eval = FALSE--------------------------------------------
 #  
 #  if (!requireNamespace("BiocManager", quietly = TRUE))
 #      install.packages("BiocManager")
@@ -160,7 +159,7 @@ head(sigchart2)
 #  BiocManager::install("rWikiPathways")
 #  
 
-## ----pathlist_chunk7, eval = FALSE---------------------------------------
+## ----pathlist_chunk7, eval = FALSE--------------------------------------------
 #  
 #  #Matching the IDs to create list of wikipathways for metabs
 #  library(rWikiPathways)

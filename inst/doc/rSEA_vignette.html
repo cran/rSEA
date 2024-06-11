@@ -1,88 +1,118 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Mitra Ebrahimpoor" />
 
-<meta name="date" content="2020-03-23" />
+<meta name="date" content="2024-06-12" />
 
 <title>rSEA R package</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {  }
+{ }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -91,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -105,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -118,9 +156,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -289,7 +324,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -304,7 +340,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">rSEA <em>R</em> package</h1>
 <h4 class="author">Mitra Ebrahimpoor</h4>
-<h4 class="date">2020-03-23</h4>
+<h4 class="date">2024-06-12</h4>
 
 
 
@@ -312,325 +348,509 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 body {
 text-align: justify}
 </style>
-<pre><code>## Warning: package &#39;rSEA&#39; was built under R version 3.6.3</code></pre>
+<pre><code>## Warning: package &#39;hommel&#39; was built under R version 4.0.5</code></pre>
 <div id="simultaneous-enrichment-analysis-with-rsea" class="section level1">
 <h1>Simultaneous Enrichment Analysis with rSEA</h1>
 <div id="overview-of-the-method" class="section level2">
 <h2>Overview of the Method</h2>
-<p><em>rSEA</em> is a novel paradigm for simultaneous enrichment analysis of feature-sets. It combines the pre-existing self-contained and competitive approaches by defining a unified null hypothesis that includes the null hypotheses of both approaches as special cases. This null hypothesis is tested with All-Resolutions Inference (ARI), an approach to multiple testing that controls Familywise Error Rate based on closed testing and Simes tests.</p>
-<p><em>rSEA</em> is extremely flexible: not only does it allow both self-contained and competitive testing, it allows the user to choose the type of test after seeing the data. Moreover, the choice of feature-set database(s) may also be postponed until after seeing the data. The data may even be used for the definition of feature-sets, e.g. by taking subsets of feature-sets with a certain sign or magnitude of estimated effect. Users may even iterate and revise the choice of type of test and the definition of feature-sets of interest on the basis of results. Still, familywise error is controlled for all final results.</p>
-<p>The required input is feature-wise p-values, so the functions can be used with any omics platform, experimental design or model. The only assumption needed is the Simes inequality, which allows dependence between p-values. It is the same assumption that is needed for the validity of the procedure of Benjamini and Hochberg as a method for False Discovery Rate control. Despite the flexibility and lack of independence assumptions, the new method has acceptable power compared to classical enrichment methods. Notably, the power of the method does not depend on the number of feature-sets tested. As a consequence, classical methods will do better for a limited number of candidate feature-sets, while <em>rSEA</em> outperforms other methods when databases are large. According to the simulation studies, <em>rSEA</em> is comparable in power to classical enrichment methods for a database the size of Gene Ontology.</p>
-<p>The output for each feature-set is not only an adjusted p-value for enrichment, but also a simultaneous lower confidence bound to the actual proportion of active features. Users obtain not just the presence or absence of enrichment, but also an assessment of the level of enrichment in each feature-set.</p>
+<p><em>rSEA</em> is a novel paradigm for simultaneous enrichment
+analysis of feature-sets. It combines the pre-existing self-contained
+and competitive approaches by defining a unified null hypothesis that
+includes the null hypotheses of both approaches as special cases. This
+null hypothesis is tested with All-Resolutions Inference (ARI), an
+approach to multiple testing that controls Familywise Error Rate based
+on closed testing and Simes tests.</p>
+<p><em>rSEA</em> is extremely flexible: not only does it allow both
+self-contained and competitive testing, it allows the user to choose the
+type of test after seeing the data. Moreover, the choice of feature-set
+database(s) may also be postponed until after seeing the data. The data
+may even be used for the definition of feature-sets, e.g. by taking
+subsets of feature-sets with a certain sign or magnitude of estimated
+effect. Users may even iterate and revise the choice of type of test and
+the definition of feature-sets of interest on the basis of results.
+Still, familywise error is controlled for all final results.</p>
+<p>The required input is feature-wise p-values, so the functions can be
+used with any omics platform, experimental design or model. The only
+assumption needed is the Simes inequality, which allows dependence
+between p-values. It is the same assumption that is needed for the
+validity of the procedure of Benjamini and Hochberg as a method for
+False Discovery Rate control. Despite the flexibility and lack of
+independence assumptions, the new method has acceptable power compared
+to classical enrichment methods. Notably, the power of the method does
+not depend on the number of feature-sets tested. As a consequence,
+classical methods will do better for a limited number of candidate
+feature-sets, while <em>rSEA</em> outperforms other methods when
+databases are large. According to the simulation studies, <em>rSEA</em>
+is comparable in power to classical enrichment methods for a database
+the size of Gene Ontology.</p>
+<p>The output for each feature-set is not only an adjusted p-value for
+enrichment, but also a simultaneous lower confidence bound to the actual
+proportion of active features. Users obtain not just the presence or
+absence of enrichment, but also an assessment of the level of enrichment
+in each feature-set.</p>
 <div id="defining-the-unified-null-hypothesis" class="section level3">
 <h3>Defining the unified null hypothesis</h3>
-<p>The unified null hypothesis is very flexible with two parameters. Other than the default selfcontained and competitive testing, it can handle custom competitive testing. Here are a few examples on how to define and intrepret different parameters within the unified null, for more details please refer to the paper mentioned at the end of this document.</p>
+<p>The unified null hypothesis is very flexible with two parameters.
+Other than the default selfcontained and competitive testing, it can
+handle custom competitive testing. Here are a few examples on how to
+define and intrepret different parameters within the unified null, for
+more details please refer to the paper mentioned at the end of this
+document.</p>
 <p>The unified null hypothesis is written as: <span class="math inline">\(H^{U}_{0}(S,c)\colon \pi (S)\leq c\)</span>,</p>
-<p>Here, <span class="math inline">\(\pi\)</span> is the proportion of true discoveries (TDP) in <span class="math inline">\(S\)</span>, <span class="math inline">\(S\)</span> is the feature set of interest and <span class="math inline">\(c\)</span> is the threshold for testing. So it reads: TDP for the features in the set is less than threshold <span class="math inline">\(c\)</span>.Different combinations of <span class="math inline">\(S\)</span> and <span class="math inline">\(c\)</span> are possible and SEA has considered all of these tests, hence looking at them one after the other will not affect the type I error (<span class="math inline">\(\alpha\)</span>). So, fo feature-set <span class="math inline">\(S_t\)</span> you can test:</p>
+<p>Here, <span class="math inline">\(\pi\)</span> is the proportion of
+true discoveries (TDP) in <span class="math inline">\(S\)</span>, <span class="math inline">\(S\)</span> is the feature set of interest and
+<span class="math inline">\(c\)</span> is the threshold for testing. So
+it reads: TDP for the features in the set is less than threshold <span class="math inline">\(c\)</span>.Different combinations of <span class="math inline">\(S\)</span> and <span class="math inline">\(c\)</span> are possible and SEA has considered all
+of these tests, hence looking at them one after the other will not
+affect the type I error (<span class="math inline">\(\alpha\)</span>).
+So, fo feature-set <span class="math inline">\(S_t\)</span> you can
+test:</p>
 <p>*Self-contained null hypothesis: <span class="math inline">\(S=S_t\)</span> and <span class="math inline">\(C=0\)</span></p>
 <p>*Default competitive null hypothesis: <span class="math inline">\(S=S_t\)</span> and <span class="math inline">\(C=TDP(S^{c}_{t})\)</span></p>
 <p>*Custom competitive null hypothesis: <span class="math inline">\(S=S_t\)</span> and <span class="math inline">\(C=c\)</span></p>
-<p>Where <span class="math inline">\(S^{c}_{t}\)</span> is the set of features that are not in the feature-set of interest or what is called ‘background’ features.</p>
-<p>Note that value of <span class="math inline">\(c\)</span> will define the test, so if there are 15 features in <span class="math inline">\(S\)</span>, choosing <span class="math inline">\(c=0.6\)</span> means you are testing if there are at least 9 <span class="math inline">\(( 0.6 \times 15)\)</span> active features in that set. To choose this value you can start with the TDP of the background as in the default competitive and refine it as you see fit.</p>
+<p>Where <span class="math inline">\(S^{c}_{t}\)</span> is the set of
+features that are not in the feature-set of interest or what is called
+‘background’ features.</p>
+<p>Note that value of <span class="math inline">\(c\)</span> will define
+the test, so if there are 15 features in <span class="math inline">\(S\)</span>, choosing <span class="math inline">\(c=0.6\)</span> means you are testing if there are
+at least 9 <span class="math inline">\(( 0.6 \times 15)\)</span> active
+features in that set. To choose this value you can start with the TDP of
+the background as in the default competitive and refine it as you see
+fit.</p>
 </div>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
-<p>Currently there are three functions within <code>rSEA</code>. To portray their usage, we first explain the properties of main arguments and then simulate a dataset of 300 features and a mock pathlist for some practical examples.</p>
+<p>Currently there are three functions within <code>rSEA</code>. To
+portray their usage, we first explain the properties of main arguments
+and then simulate a dataset of 300 features and a mock pathlist for some
+practical examples.</p>
 <div id="input-and-format" class="section level3">
 <h3>Input and format</h3>
-<p>As mentioned in the previous section, the required input is raw feature-wise p-values i.e. p-values from individual testing of the features before application of multiple testing corrections. The second required element is the names of features corresponding to each p-value. This can be either named, or stored in a dataframe with a column representing the name, or a separate vector matching the p-values. The third and last element is the database of feature-sets (called <em>pathlist</em> from now on). There are different types of databases:</p>
+<p>As mentioned in the previous section, the required input is raw
+feature-wise p-values i.e. p-values from individual testing of the
+features before application of multiple testing corrections. The second
+required element is the names of features corresponding to each p-value.
+This can be either named, or stored in a dataframe with a column
+representing the name, or a separate vector matching the p-values. The
+third and last element is the database of feature-sets (called
+<em>pathlist</em> from now on). There are different types of
+databases:</p>
 <ul>
-<li>External: databases in literature such as GO, KEGG, Wikipathways, etc.</li>
-<li>Internal: User-defined feature-sets based on the current or previous studies</li>
+<li>External: databases in literature such as GO, KEGG, Wikipathways,
+etc.</li>
+<li>Internal: User-defined feature-sets based on the current or previous
+studies</li>
 <li>Combination: internally modified version of public databases</li>
 </ul>
-<p>No matter which database is used, the feature-sets should be stored as a list of lists, where each feature-set is a (named) list defined in terms of the featureIDs matching the input. This type of pathlists are very easy to create in R and the “Creating the Pathlist” section explains how to make a <em>pathlist</em> using online resources of <em>GO</em>, <em>KEGG</em> and <em>Wikipathways</em>.</p>
+<p>No matter which database is used, the feature-sets should be stored
+as a list of lists, where each feature-set is a (named) list defined in
+terms of the featureIDs matching the input. This type of pathlists are
+very easy to create in R and the “Creating the Pathlist” section
+explains how to make a <em>pathlist</em> using online resources of
+<em>GO</em>, <em>KEGG</em> and <em>Wikipathways</em>.</p>
 </div>
 <div id="example-dataset" class="section level3">
 <h3>Example dataset</h3>
-<p>We simulate the p-values using <code>runif()</code>, to make sure there is some signal, we simulate 100 small p-values and 200 random ones. The featureIDS are just a combination of two small-case letters. Then 20 hypothetical pathways are generated by selecting a random set of names, these are combined to create the pathlist required for the functions <code>setTest()</code> and <code>SEA()</code>. In practice, you will have this data yourself and won’t need to run this chunk.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">set.seed</span>(<span class="dv">753</span>) <span class="co">#to get the same result as you repeat</span></a>
-<a class="sourceLine" id="cb2-3" title="3">names&lt;-<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">300</span>, <span class="cf">function</span>(i) <span class="kw">paste0</span>( <span class="kw">combn</span>(letters, <span class="dv">2</span>)[,i], <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)) <span class="co"># a vector of two-letter names</span></a>
-<a class="sourceLine" id="cb2-4" title="4">p&lt;-<span class="kw">c</span>(<span class="kw">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)<span class="op">^</span><span class="dv">6</span>,<span class="kw">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="co"># a vector of random p-values, the first 100 are smaller</span></a>
-<a class="sourceLine" id="cb2-5" title="5">simdat&lt;-<span class="kw">data.frame</span>(<span class="dt">pvals=</span>p, <span class="dt">ids=</span>names, <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>) <span class="co">#the dataframe</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="kw">head</span>(simdat) <span class="co">#take a look at the dataset</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;          pvals ids</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 1 1.633988e-02  ab</span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 2 3.967097e-01  ac</span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt; 3 1.620251e-02  ad</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 4 2.094568e-02  ae</span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 5 9.035995e-04  af</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 6 2.741096e-05  ag</span></a>
-<a class="sourceLine" id="cb2-14" title="14"></a>
-<a class="sourceLine" id="cb2-15" title="15">pathsize&lt;-<span class="kw">floor</span>(<span class="kw">runif</span>(<span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">60</span>)) <span class="co">#generate a vector of random pathway sizes between 10 and 60</span></a>
-<a class="sourceLine" id="cb2-16" title="16"></a>
-<a class="sourceLine" id="cb2-17" title="17">mocklist&lt;-<span class="kw">lapply</span>(pathsize,<span class="cf">function</span>(x) <span class="kw">sample</span>(names,<span class="dt">size=</span>x)) <span class="co"># create a pseudo list of pathways</span></a></code></pre></div>
+<p>We simulate the p-values using <code>runif()</code>, to make sure
+there is some signal, we simulate 100 small p-values and 200 random
+ones. The featureIDS are just a combination of two small-case letters.
+Then 20 hypothetical pathways are generated by selecting a random set of
+names, these are combined to create the pathlist required for the
+functions <code>setTest()</code> and <code>SEA()</code>. In practice,
+you will have this data yourself and won’t need to run this chunk.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">753</span>) <span class="co">#to get the same result as you repeat</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>names<span class="ot">&lt;-</span><span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">300</span>, <span class="cf">function</span>(i) <span class="fu">paste0</span>( <span class="fu">combn</span>(letters, <span class="dv">2</span>)[,i], <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>)) <span class="co"># a vector of two-letter names</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">1</span>)<span class="sc">^</span><span class="dv">6</span>,<span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="co"># a vector of random p-values, the first 100 are smaller</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>simdat<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">pvals=</span>p, <span class="at">ids=</span>names, <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span>) <span class="co">#the dataframe</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">head</span>(simdat) <span class="co">#take a look at the dataset</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;          pvals ids</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 1 1.633988e-02  ab</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 2 3.967097e-01  ac</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 3 1.620251e-02  ad</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; 4 2.094568e-02  ae</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; 5 9.035995e-04  af</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; 6 2.741096e-05  ag</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>pathsize<span class="ot">&lt;-</span><span class="fu">floor</span>(<span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">60</span>)) <span class="co">#generate a vector of random pathway sizes between 10 and 60</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>mocklist<span class="ot">&lt;-</span><span class="fu">lapply</span>(pathsize,<span class="cf">function</span>(x) <span class="fu">sample</span>(names,<span class="at">size=</span>x)) <span class="co"># create a pseudo list of pathways</span></span></code></pre></div>
 </div>
 <div id="settdp-function" class="section level3">
 <h3><code>setTDP()</code> function</h3>
-<p>The <code>setTDP()</code> function is used to get the point estimate and the lower-bound for the ’True Discovery Proportion (TDP)’of a feature-set, which can even be the set of all features</p>
-<p>To get an overview of the dataset we just generated, we will use the <code>setTest()</code> function without a <code>set</code> argument. This evaluates the set of all features. Note that, the data argument is optional, so you can pass two matching vectors of p-values and featureIDs, the output of the following codes would be the same.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">require</span>(rSEA) <span class="co">#load rSEA</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co">#setTDP(pvals, ids, data=simdat) </span></a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="kw">setTDP</span>(simdat<span class="op">$</span>pvals, simdat<span class="op">$</span>ids) </a>
-<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; $TDP.bound</span></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; [1] 0.1</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; $TDP.estimate</span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [1] 0.19</span></a></code></pre></div>
-<p>So at least 0.1 percent of the features in the dataset are associated with the outcome, and the median point estimate is 0.19. We may say that there are at least (0.1 X 300) 30 active features in the dataset. If we take a look at pathways, what is the proportion of <em>active</em> features in pathway 3? the following will provide an answer:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">require</span>(rSEA) <span class="co">#load rSEA</span></a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw">setTDP</span>(simdat<span class="op">$</span>pvals, simdat<span class="op">$</span>ids, <span class="dt">set=</span>mocklist[[<span class="dv">3</span>]]) </a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; $TDP.bound</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; [1] 0.2</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; $TDP.estimate</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; [1] 0.2666667</span></a></code></pre></div>
-<p>So it seems that pathway 3 is enriched with active genes. We can formally test that with <code>setTest()</code> function, as you see below.</p>
+<p>The <code>setTDP()</code> function is used to get the point estimate
+and the lower-bound for the ’True Discovery Proportion (TDP)’of a
+feature-set, which can even be the set of all features</p>
+<p>To get an overview of the dataset we just generated, we will use the
+<code>setTest()</code> function without a <code>set</code> argument.
+This evaluates the set of all features. Note that, the data argument is
+optional, so you can pass two matching vectors of p-values and
+featureIDs, the output of the following codes would be the same.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) <span class="co">#load rSEA</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#setTDP(pvals, ids, data=simdat) </span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">setTDP</span>(simdat<span class="sc">$</span>pvals, simdat<span class="sc">$</span>ids) </span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; $TDP.bound</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1] 0.1</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; $TDP.estimate</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [1] 0.19</span></span></code></pre></div>
+<p>So at least 0.1 percent of the features in the dataset are associated
+with the outcome, and the median point estimate is 0.19. We may say that
+there are at least (0.1 X 300) 30 active features in the dataset. If we
+take a look at pathways, what is the proportion of <em>active</em>
+features in pathway 3? the following will provide an answer:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) <span class="co">#load rSEA</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">setTDP</span>(simdat<span class="sc">$</span>pvals, simdat<span class="sc">$</span>ids, <span class="at">set=</span>mocklist[[<span class="dv">3</span>]]) </span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; $TDP.bound</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; [1] 0.2</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; $TDP.estimate</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; [1] 0.2666667</span></span></code></pre></div>
+<p>So it seems that pathway 3 is enriched with active genes. We can
+formally test that with <code>setTest()</code> function, as you see
+below.</p>
 </div>
 <div id="settest-function" class="section level3">
 <h3><code>setTest()</code> function</h3>
-<p>The <code>setTest()</code> function is used with a single set, which can even be the set of all features. It returns an adjusted p-value for the chosen test of features. for details on defining the testtype see “Defining the unified null hypothesis” section.</p>
-<p>Here, we first test if there are <em>any</em> active features, sho we will do a <em>selfcontained</em> test for the set of all features. We already know that the corresponding p-value is significant as the estimated lower-bound for the TDP is estimated to be 0.1. Then we will test the default competitive null for pathway 3.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">require</span>(rSEA) </a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#selfcontained test of all features</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="kw">setTest</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">testype =</span> <span class="st">&quot;selfcontained&quot;</span>)  </a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;  adj.P-value </span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; 3.535197e-15</span></a>
-<a class="sourceLine" id="cb5-7" title="7"></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">#default comp. test</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="kw">setTest</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">set=</span>mocklist[[<span class="dv">3</span>]], <span class="dt">testype =</span> <span class="st">&quot;competitive&quot;</span>)  </a>
-<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; adj.P-value </span></a>
-<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;  0.03004846</span></a>
-<a class="sourceLine" id="cb5-12" title="12"></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="co">#custom comp. test</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="kw">setTest</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">set=</span>mocklist[[<span class="dv">3</span>]], <span class="dt">testype =</span> <span class="st">&quot;competitive&quot;</span>, <span class="dt">testvalue =</span> <span class="fl">0.5</span>) </a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt; adj.P-value </span></a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt;   0.9949721</span></a></code></pre></div>
-<p>As expected, the self-contained null hypothesis for the set of all features is rejected, so there <em>are</em> some active features in the dataset. Also, pathway 3 is significantly enriched with active features. The default competitive tests against the total TDP, which is 0.1 here. We have repeated the competitive null test with 0.5, to see if half of the features in the set are active.</p>
+<p>The <code>setTest()</code> function is used with a single set, which
+can even be the set of all features. It returns an adjusted p-value for
+the chosen test of features. for details on defining the testtype see
+“Defining the unified null hypothesis” section.</p>
+<p>Here, we first test if there are <em>any</em> active features, sho we
+will do a <em>selfcontained</em> test for the set of all features. We
+already know that the corresponding p-value is significant as the
+estimated lower-bound for the TDP is estimated to be 0.1. Then we will
+test the default competitive null for pathway 3.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#selfcontained test of all features</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">setTest</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">testype =</span> <span class="st">&quot;selfcontained&quot;</span>)  </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;  adj.P-value </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 3.535197e-15</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#default comp. test</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="fu">setTest</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">set=</span>mocklist[[<span class="dv">3</span>]], <span class="at">testype =</span> <span class="st">&quot;competitive&quot;</span>)  </span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; adj.P-value </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  0.03004846</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#custom comp. test</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">setTest</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">set=</span>mocklist[[<span class="dv">3</span>]], <span class="at">testype =</span> <span class="st">&quot;competitive&quot;</span>, <span class="at">testvalue =</span> <span class="fl">0.5</span>) </span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; adj.P-value </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;   0.9949721</span></span></code></pre></div>
+<p>As expected, the self-contained null hypothesis for the set of all
+features is rejected, so there <em>are</em> some active features in the
+dataset. Also, pathway 3 is significantly enriched with active features.
+The default competitive tests against the total TDP, which is 0.1 here.
+We have repeated the competitive null test with 0.5, to see if half of
+the features in the set are active.</p>
 </div>
 <div id="sea-function" class="section level3">
 <h3><code>SEA()</code> function</h3>
-<p>The <code>SEA()</code> function will simultaneously evaluate multiple pathways from pathlist. Here we test all the pathways in pathlist.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">require</span>(rSEA) <span class="co">#load rSEA</span></a>
-<a class="sourceLine" id="cb6-2" title="2">testchart1&lt;-<span class="kw">SEA</span>(simdat<span class="op">$</span>pvals, simdat<span class="op">$</span>ids, <span class="dt">pathlist =</span> mocklist)</a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="kw">head</span>(testchart1)</a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt;   ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; 1  1   50        1 0.04000000    0.0800000 8.643328e-03 9.890575e-01</span></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; 2  2   16        1 0.12500000    0.1250000 2.369956e-13 6.512458e-05</span></a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; 3  3   15        1 0.20000000    0.2666667 5.599905e-04 4.530316e-03</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; 4  4   51        1 0.13725490    0.1568627 2.369956e-13 5.996829e-04</span></a>
-<a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt; 5  5   49        1 0.06122449    0.2040816 3.556689e-08 1.377925e-01</span></a>
-<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt; 6  6   58        1 0.08620690    0.1551724 1.713408e-12 7.181909e-02</span></a></code></pre></div>
-<p>The resulting chart has one row per pathway and a minimum of 3 columns. Columns represent</p>
-<p>*ID: Pathway identifier, these will be in the same order as the pathlist</p>
-<p>*Name: Name of the pathway is printed in case the pathlist is a named list</p>
+<p>The <code>SEA()</code> function will simultaneously evaluate multiple
+pathways from pathlist. Here we test all the pathways in pathlist.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) <span class="co">#load rSEA</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>testchart1<span class="ot">&lt;-</span><span class="fu">SEA</span>(simdat<span class="sc">$</span>pvals, simdat<span class="sc">$</span>ids, <span class="at">pathlist =</span> mocklist)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">head</span>(testchart1)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;   ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; 1  1   50        1 0.04000000    0.0800000 8.643328e-03 9.890575e-01</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 2  2   16        1 0.12500000    0.1250000 2.369956e-13 6.512458e-05</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 3  3   15        1 0.20000000    0.2666667 5.599905e-04 4.530316e-03</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 4  4   51        1 0.13725490    0.1568627 2.369956e-13 5.996829e-04</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; 5  5   49        1 0.06122449    0.2040816 3.556689e-08 1.377925e-01</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 6  6   58        1 0.08620690    0.1551724 1.713408e-12 7.181909e-02</span></span></code></pre></div>
+<p>The resulting chart has one row per pathway and a minimum of 3
+columns. Columns represent</p>
+<p>*ID: Pathway identifier, these will be in the same order as the
+pathlist</p>
+<p>*Name: Name of the pathway is printed in case the pathlist is a named
+list</p>
 <p>*Size: Size of the pathway as defined in pathlist</p>
-<p>*Coverage: Proportion of features in the pathway that were present in the data, so TDP is a proportion of <span class="math inline">\(size \times Coverage\)</span> features and not necessarily the whole pathway</p>
-<p>*TDP_bound: Estimated lower-bound for the proportion of true discoveries in the pathway (in paper denoted by <span class="math inline">\(\bar \pi\)</span>), the upper-bound is always 1, it can be translated to the number of true discoveries by <span class="math inline">\(size \times Coverage \times \bar \pi\)</span></p>
-<p>*TDP_estimate: A point estimate for TDP (in paper denoted by <span class="math inline">\(\hat \pi\)</span>), this can also be translated to number of true discoveries by <span class="math inline">\(size \times Coverage \times \hat \pi\)</span></p>
-<p>*adj P: These include the adjusted p-values for the specified tests. SC. and Comp. stand for self-contained and competitive, respectively. The custom competitive, is the tets of unified null against the user-chosen <code>thresh</code></p>
-<p>Here all pathways have a coverage of 1 which is very unlikely in practice. The first pathway is of size 50, we can infer that at least 2 (<span class="math inline">\(1 \times 50 \times 0.04\)</span>) features are associated with the outcome. This is confirmed by the significant self-contained adj.p-value and non-significant competitive adj.p-value. Recall that the default competitive null hypothesis tests against the over all TDP which we estimated as 0.1, so for this pathway the default competitive hypothesis tests the pathway TPD against 5 (<span class="math inline">\(1 \times 50 \times 0.1\)</span>).</p>
-<p>If you were to use a larger pathlist such as Gene Ontology, it may be that you are not interested in all of those 12 thousand pathways, then the pathways of interest are selected, using <code>select</code> argument. Here we choose 20 pathways. You can choose also based on the name of pathways if the pathlist is named.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">require</span>(rSEA) <span class="co">#load rSEA</span></a>
-<a class="sourceLine" id="cb7-2" title="2">testchart2&lt;-<span class="kw">SEA</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">pathlist =</span> mocklist, <span class="dt">select =</span><span class="dv">11</span><span class="op">:</span><span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3">testchart2</a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt; 1  11   44        1 0.04545455   0.15909091 1.119805e-05 0.1998094702</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt; 2  12   42        1 0.09523810   0.16666667 3.556689e-08 0.0892886710</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt; 3  13   28        1 0.07142857   0.14285714 1.119805e-05 0.0892886710</span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt; 4  14   47        1 0.08510638   0.10638298 3.535197e-15 0.1823282387</span></a>
-<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt; 5  15   20        1 0.00000000   0.00000000 9.825390e-01 0.9949720958</span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt; 6  16   36        1 0.08333333   0.11111111 8.985538e-03 0.1823282387</span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt; 7  17   11        1 0.09090909   0.18181818 4.330958e-02 0.1906819245</span></a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt; 8  18   20        1 0.15000000   0.20000000 8.616319e-06 0.0005599905</span></a>
-<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt; 9  19   48        1 0.10416667   0.20833333 3.556689e-08 0.0433095818</span></a>
-<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt; 10 20   42        1 0.09523810   0.14285714 2.278591e-03 0.0591159858</span></a>
-<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt; 11 21   58        1 0.17241379   0.22413793 3.556689e-08 0.0019393255</span></a>
-<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt; 12 22   56        1 0.07142857   0.12500000 3.535197e-15 0.2313214600</span></a>
-<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; 13 23   33        1 0.06060606   0.09090909 3.218631e-05 0.9949720958</span></a>
-<a class="sourceLine" id="cb7-18" title="18"><span class="co">#&gt; 14 24   55        1 0.09090909   0.12727273 4.044616e-05 0.1160261513</span></a>
-<a class="sourceLine" id="cb7-19" title="19"><span class="co">#&gt; 15 25   27        1 0.14814815   0.18518519 3.556689e-08 0.0005996829</span></a>
-<a class="sourceLine" id="cb7-20" title="20"><span class="co">#&gt; 16 26   13        1 0.07692308   0.07692308 1.114892e-03 0.9949720958</span></a>
-<a class="sourceLine" id="cb7-21" title="21"><span class="co">#&gt; 17 27   29        1 0.00000000   0.00000000 9.825390e-01 0.9949720958</span></a>
-<a class="sourceLine" id="cb7-22" title="22"><span class="co">#&gt; 18 28   55        1 0.07272727   0.16363636 3.556689e-08 0.1998094702</span></a>
-<a class="sourceLine" id="cb7-23" title="23"><span class="co">#&gt; 19 29   39        1 0.07692308   0.17948718 1.713408e-12 0.0888316946</span></a>
-<a class="sourceLine" id="cb7-24" title="24"><span class="co">#&gt; 20 30   14        1 0.00000000   0.07142857 4.829607e-01 0.9906971999</span></a></code></pre></div>
-<p>It seems both pathway 8 and 9 have some interesting features associated with the outcome of interest. It is interesting to see if the union of these two has a larger TDP, we can examine this with <code>setTDP()</code> function. Then we can test if the set of features in the overlapping set is enriched.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">require</span>(rSEA) <span class="co">#load rSEA</span></a>
-<a class="sourceLine" id="cb8-2" title="2">lap&lt;-<span class="kw">union</span>(mocklist[[<span class="dv">8</span>]], mocklist[[<span class="dv">9</span>]]) <span class="co"># the overlapping feature-set</span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="kw">length</span>(lap)</a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt; [1] 71</span></a>
-<a class="sourceLine" id="cb8-5" title="5"></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="kw">setTDP</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">set =</span>lap) </a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; $TDP.bound</span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; [1] 0.04225352</span></a>
-<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt; $TDP.estimate</span></a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt; [1] 0.1408451</span></a>
-<a class="sourceLine" id="cb8-12" title="12"><span class="kw">setTest</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">set =</span>lap , <span class="dt">testype =</span> <span class="st">&quot;selfcontained&quot;</span>)</a>
-<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt;  adj.P-value </span></a>
-<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; 3.218631e-05</span></a>
-<a class="sourceLine" id="cb8-15" title="15"><span class="kw">setTest</span>(pvals, ids, <span class="dt">data=</span>simdat, <span class="dt">set =</span>lap , <span class="dt">testype =</span> <span class="st">&quot;competitive&quot;</span>, <span class="dt">testvalue =</span> <span class="fl">0.1</span>) </a>
-<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; adj.P-value </span></a>
-<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt;   0.1816111</span></a></code></pre></div>
-<p>As you can see there are 71 unique features with only 3 (71 0.042) active features. According to the self-contained test, at least some of these features are significantly associated with the outcome. Testing against 0.1 does not reject the null hypothesis that the proportion of discoveries in this new set is less than 0.1.</p>
+<p>*Coverage: Proportion of features in the pathway that were present in
+the data, so TDP is a proportion of <span class="math inline">\(size
+\times Coverage\)</span> features and not necessarily the whole
+pathway</p>
+<p>*TDP_bound: Estimated lower-bound for the proportion of true
+discoveries in the pathway (in paper denoted by <span class="math inline">\(\bar \pi\)</span>), the upper-bound is always 1,
+it can be translated to the number of true discoveries by <span class="math inline">\(size \times Coverage \times \bar \pi\)</span></p>
+<p>*TDP_estimate: A point estimate for TDP (in paper denoted by <span class="math inline">\(\hat \pi\)</span>), this can also be translated to
+number of true discoveries by <span class="math inline">\(size \times
+Coverage \times \hat \pi\)</span></p>
+<p>*adj P: These include the adjusted p-values for the specified tests.
+SC. and Comp. stand for self-contained and competitive, respectively.
+The custom competitive, is the tets of unified null against the
+user-chosen <code>thresh</code></p>
+<p>Here all pathways have a coverage of 1 which is very unlikely in
+practice. The first pathway is of size 50, we can infer that at least 2
+(<span class="math inline">\(1 \times 50 \times 0.04\)</span>) features
+are associated with the outcome. This is confirmed by the significant
+self-contained adj.p-value and non-significant competitive adj.p-value.
+Recall that the default competitive null hypothesis tests against the
+over all TDP which we estimated as 0.1, so for this pathway the default
+competitive hypothesis tests the pathway TPD against 5 (<span class="math inline">\(1 \times 50 \times 0.1\)</span>).</p>
+<p>If you were to use a larger pathlist such as Gene Ontology, it may be
+that you are not interested in all of those 12 thousand pathways, then
+the pathways of interest are selected, using <code>select</code>
+argument. Here we choose 20 pathways. You can choose also based on the
+name of pathways if the pathlist is named.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) <span class="co">#load rSEA</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>testchart2<span class="ot">&lt;-</span><span class="fu">SEA</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">pathlist =</span> mocklist, <span class="at">select =</span><span class="dv">11</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>testchart2</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; 1  11   44        1 0.04545455   0.15909091 1.119805e-05 0.1998094702</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; 2  12   42        1 0.09523810   0.16666667 3.556689e-08 0.0892886710</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; 3  13   28        1 0.07142857   0.14285714 1.119805e-05 0.0892886710</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 4  14   47        1 0.08510638   0.10638298 3.535197e-15 0.1823282387</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 5  15   20        1 0.00000000   0.00000000 9.825390e-01 0.9949720958</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; 6  16   36        1 0.08333333   0.11111111 8.985538e-03 0.1823282387</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 7  17   11        1 0.09090909   0.18181818 4.330958e-02 0.1906819245</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 8  18   20        1 0.15000000   0.20000000 8.616319e-06 0.0005599905</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; 9  19   48        1 0.10416667   0.20833333 3.556689e-08 0.0433095818</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; 10 20   42        1 0.09523810   0.14285714 2.278591e-03 0.0591159858</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; 11 21   58        1 0.17241379   0.22413793 3.556689e-08 0.0019393255</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; 12 22   56        1 0.07142857   0.12500000 3.535197e-15 0.2313214600</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 13 23   33        1 0.06060606   0.09090909 3.218631e-05 0.9949720958</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; 14 24   55        1 0.09090909   0.12727273 4.044616e-05 0.1160261513</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; 15 25   27        1 0.14814815   0.18518519 3.556689e-08 0.0005996829</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 16 26   13        1 0.07692308   0.07692308 1.114892e-03 0.9949720958</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; 17 27   29        1 0.00000000   0.00000000 9.825390e-01 0.9949720958</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; 18 28   55        1 0.07272727   0.16363636 3.556689e-08 0.1998094702</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; 19 29   39        1 0.07692308   0.17948718 1.713408e-12 0.0888316946</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; 20 30   14        1 0.00000000   0.07142857 4.829607e-01 0.9906971999</span></span></code></pre></div>
+<p>It seems both pathway 8 and 9 have some interesting features
+associated with the outcome of interest. It is interesting to see if the
+union of these two has a larger TDP, we can examine this with
+<code>setTDP()</code> function. Then we can test if the set of features
+in the overlapping set is enriched.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) <span class="co">#load rSEA</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>lap<span class="ot">&lt;-</span><span class="fu">union</span>(mocklist[[<span class="dv">8</span>]], mocklist[[<span class="dv">9</span>]]) <span class="co"># the overlapping feature-set</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">length</span>(lap)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; [1] 71</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="fu">setTDP</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">set =</span>lap) </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; $TDP.bound</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; [1] 0.04225352</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; $TDP.estimate</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; [1] 0.1408451</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="fu">setTest</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">set =</span>lap , <span class="at">testype =</span> <span class="st">&quot;selfcontained&quot;</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt;  adj.P-value </span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; 3.218631e-05</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="fu">setTest</span>(pvals, ids, <span class="at">data=</span>simdat, <span class="at">set =</span>lap , <span class="at">testype =</span> <span class="st">&quot;competitive&quot;</span>, <span class="at">testvalue =</span> <span class="fl">0.1</span>) </span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; adj.P-value </span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt;   0.1816111</span></span></code></pre></div>
+<p>As you can see there are 71 unique features with only 3 (71 ) active
+features. According to the self-contained test, at least some of these
+features are significantly associated with the outcome. Testing against
+0.1 does not reject the null hypothesis that the proportion of
+discoveries in this new set is less than 0.1.</p>
 </div>
 <div id="topsea-function" class="section level3">
 <h3><code>topSEA()</code> function</h3>
-<p><code>topSEA()</code> is a sorting function to facilitate the evaluation of the SEA chart. In this example, we will first sort the table by TDP estimate to get the pathways with maximum TDP on top of chart. One may wish to sort the table by Comp.adjP to get the pathways with smaller adj.p-value for the default competitive test on top. Another interesting output can be keeping only the significant (at level <span class="math inline">\(\alpha&lt;0.05\)</span>) pathways according to the self-contained test and then ordering by size.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">require</span>(rSEA) <span class="co">#load rSEA</span></a>
-<a class="sourceLine" id="cb9-2" title="2">testchart3&lt;-<span class="kw">topSEA</span>(testchart1) <span class="co">#sorted by large TDP.estimates</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw">head</span>(testchart3)</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 3   3   15        1 0.20000000    0.2666667 5.599905e-04 0.0045303163</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; 21 21   58        1 0.17241379    0.2241379 3.556689e-08 0.0019393255</span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; 42 42   23        1 0.13043478    0.2173913 1.713408e-12 0.0498190338</span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; 34 34   19        1 0.15789474    0.2105263 6.512458e-05 0.0001434172</span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; 19 19   48        1 0.10416667    0.2083333 3.556689e-08 0.0433095818</span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; 5   5   49        1 0.06122449    0.2040816 3.556689e-08 0.1377924569</span></a>
-<a class="sourceLine" id="cb9-11" title="11"></a>
-<a class="sourceLine" id="cb9-12" title="12">testchart4&lt;-<span class="kw">topSEA</span>(testchart1, <span class="dt">by=</span>Comp.adjP, <span class="dt">descending=</span><span class="ot">FALSE</span>) <span class="co">#sorted by smallest competitive adj.p-values </span></a>
-<a class="sourceLine" id="cb9-13" title="13"><span class="kw">head</span>(testchart3)</a>
-<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; 3   3   15        1 0.20000000    0.2666667 5.599905e-04 0.0045303163</span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; 21 21   58        1 0.17241379    0.2241379 3.556689e-08 0.0019393255</span></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; 42 42   23        1 0.13043478    0.2173913 1.713408e-12 0.0498190338</span></a>
-<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; 34 34   19        1 0.15789474    0.2105263 6.512458e-05 0.0001434172</span></a>
-<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; 19 19   48        1 0.10416667    0.2083333 3.556689e-08 0.0433095818</span></a>
-<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt; 5   5   49        1 0.06122449    0.2040816 3.556689e-08 0.1377924569</span></a>
-<a class="sourceLine" id="cb9-21" title="21"></a>
-<a class="sourceLine" id="cb9-22" title="22">sigchart&lt;-<span class="kw">topSEA</span>(testchart1, <span class="dt">by=</span>Comp.adjP, <span class="dt">thresh =</span> <span class="fl">0.05</span>) <span class="co">#keep only significant self-contained p-values</span></a>
-<a class="sourceLine" id="cb9-23" title="23">sigchart2&lt;-<span class="kw">topSEA</span>(sigchart, <span class="dt">by=</span>Size, <span class="dt">descending=</span><span class="ot">TRUE</span>) <span class="co">#sorted by pathway size</span></a>
-<a class="sourceLine" id="cb9-24" title="24"><span class="kw">head</span>(sigchart2)</a>
-<a class="sourceLine" id="cb9-25" title="25"><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP Comp.adjP</span></a>
-<a class="sourceLine" id="cb9-26" title="26"><span class="co">#&gt; 22 22   56        1 0.07142857    0.1250000 3.535197e-15 0.2313215</span></a>
-<a class="sourceLine" id="cb9-27" title="27"><span class="co">#&gt; 41 41   55        1 0.07272727    0.1090909 1.713408e-12 0.4803668</span></a>
-<a class="sourceLine" id="cb9-28" title="28"><span class="co">#&gt; 28 28   55        1 0.07272727    0.1636364 3.556689e-08 0.1998095</span></a>
-<a class="sourceLine" id="cb9-29" title="29"><span class="co">#&gt; 1   1   50        1 0.04000000    0.0800000 8.643328e-03 0.9890575</span></a>
-<a class="sourceLine" id="cb9-30" title="30"><span class="co">#&gt; 9   9   50        1 0.04000000    0.1400000 3.218631e-05 0.2389773</span></a>
-<a class="sourceLine" id="cb9-31" title="31"><span class="co">#&gt; 11 11   44        1 0.04545455    0.1590909 1.119805e-05 0.1998095</span></a></code></pre></div>
-<p>There are some additional options. One is removing pathways with a coverage smaller than a certain value, for example by adding <code>cover=0.5</code>, only pathways with 50% coverage are kept.</p>
+<p><code>topSEA()</code> is a sorting function to facilitate the
+evaluation of the SEA chart. In this example, we will first sort the
+table by TDP estimate to get the pathways with maximum TDP on top of
+chart. One may wish to sort the table by Comp.adjP to get the pathways
+with smaller adj.p-value for the default competitive test on top.
+Another interesting output can be keeping only the significant (at level
+<span class="math inline">\(\alpha&lt;0.05\)</span>) pathways according
+to the self-contained test and then ordering by size.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">require</span>(rSEA) <span class="co">#load rSEA</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>testchart3<span class="ot">&lt;-</span><span class="fu">topSEA</span>(testchart1) <span class="co">#sorted by large TDP.estimates</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">head</span>(testchart3)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; 3   3   15        1 0.20000000    0.2666667 5.599905e-04 0.0045303163</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; 21 21   58        1 0.17241379    0.2241379 3.556689e-08 0.0019393255</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; 42 42   23        1 0.13043478    0.2173913 1.713408e-12 0.0498190338</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; 34 34   19        1 0.15789474    0.2105263 6.512458e-05 0.0001434172</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; 19 19   48        1 0.10416667    0.2083333 3.556689e-08 0.0433095818</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; 5   5   49        1 0.06122449    0.2040816 3.556689e-08 0.1377924569</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>testchart4<span class="ot">&lt;-</span><span class="fu">topSEA</span>(testchart1, <span class="at">by=</span>Comp.adjP, <span class="at">descending=</span><span class="cn">FALSE</span>) <span class="co">#sorted by smallest competitive adj.p-values </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="fu">head</span>(testchart3)</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP    Comp.adjP</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; 3   3   15        1 0.20000000    0.2666667 5.599905e-04 0.0045303163</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; 21 21   58        1 0.17241379    0.2241379 3.556689e-08 0.0019393255</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; 42 42   23        1 0.13043478    0.2173913 1.713408e-12 0.0498190338</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; 34 34   19        1 0.15789474    0.2105263 6.512458e-05 0.0001434172</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 19 19   48        1 0.10416667    0.2083333 3.556689e-08 0.0433095818</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; 5   5   49        1 0.06122449    0.2040816 3.556689e-08 0.1377924569</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>sigchart<span class="ot">&lt;-</span><span class="fu">topSEA</span>(testchart1, <span class="at">by=</span>Comp.adjP, <span class="at">thresh =</span> <span class="fl">0.05</span>) <span class="co">#keep only significant self-contained p-values</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>sigchart2<span class="ot">&lt;-</span><span class="fu">topSEA</span>(sigchart, <span class="at">by=</span>Size, <span class="at">descending=</span><span class="cn">TRUE</span>) <span class="co">#sorted by pathway size</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="fu">head</span>(sigchart2)</span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt;    ID Size Coverage  TDP.bound TDP.estimate      SC.adjP Comp.adjP</span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; 22 22   56        1 0.07142857    0.1250000 3.535197e-15 0.2313215</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; 41 41   55        1 0.07272727    0.1090909 1.713408e-12 0.4803668</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; 28 28   55        1 0.07272727    0.1636364 3.556689e-08 0.1998095</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; 1   1   50        1 0.04000000    0.0800000 8.643328e-03 0.9890575</span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; 9   9   50        1 0.04000000    0.1400000 3.218631e-05 0.2389773</span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; 11 11   44        1 0.04545455    0.1590909 1.119805e-05 0.1998095</span></span></code></pre></div>
+<p>There are some additional options. One is removing pathways with a
+coverage smaller than a certain value, for example by adding
+<code>cover=0.5</code>, only pathways with 50% coverage are kept.</p>
 </div>
 </div>
 <div id="creating-the-pathlists" class="section level2">
 <h2>Creating the Pathlists</h2>
-<p>The <code>pathlist</code> argument is a list of pathways to be evaluated and can be created in different ways, here we show a few examples of creating such a list. In practice, any list of feature-sets can be used as long as it a list. The only data you need to create the pathlist is an annotation file to link the probe identifiers to gene symbols, gene ontology terms and other gene information. This object is called a bimap object and can be retrived from different databases and even a local library. Here we present two examples, one is the famouse Gene Ontology database, for which a various range of <code>bioconductor</code> tools exist. The other is the wikipathways and the <code>rwikipathways</code> package.</p>
-<p>NOTE: For reproducibility, We suggest saving a copy of the created pathlist in your local drive as the online sources are constantly updating.</p>
+<p>The <code>pathlist</code> argument is a list of pathways to be
+evaluated and can be created in different ways, here we show a few
+examples of creating such a list. In practice, any list of feature-sets
+can be used as long as it a list. The only data you need to create the
+pathlist is an annotation file to link the probe identifiers to gene
+symbols, gene ontology terms and other gene information. This object is
+called a bimap object and can be retrived from different databases and
+even a local library. Here we present two examples, one is the famouse
+Gene Ontology database, for which a various range of
+<code>bioconductor</code> tools exist. The other is the wikipathways and
+the <code>rwikipathways</code> package.</p>
+<p>NOTE: For reproducibility, We suggest saving a copy of the created
+pathlist in your local drive as the online sources are constantly
+updating.</p>
 <div id="go-pathways" class="section level3">
 <h3>GO pathways</h3>
-<p>One standard format for annotation in <code>Bioconductor</code> is an annotation package. Annotation packages are readily available in Bioconductor for most commercial chip types. For custom-made arrays or for less frequently used platforms, it is possible to make your own annotation package using the <code>AnnBuilder</code> package. AnnotationDbi package is a key reference for learnign about how to use bimap objects. <code>AnnotationDbi</code> is used primarily to create mapping objects that allow easy access from <code>R</code> to underlying annotation databases. As such, it acts as the <code>R</code> interface for all the standard annotation packages. For more information read the help file of <code>AnnotationDbi</code>.</p>
-<p>To create the bimap for a microarray dataset done on Affymetrix hgu133a chips, install the <code>hgu133a.db</code> package. A relevent package can be used according to your data.</p>
-<p>Take the following steps to install the required bioconductor packages. For older versions of R, please refer to the appropriate Bioconductor release.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb10-3" title="3">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</a>
-<a class="sourceLine" id="cb10-4" title="4"></a>
-<a class="sourceLine" id="cb10-5" title="5">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;hgu133a.db&quot;</span>)</a>
-<a class="sourceLine" id="cb10-6" title="6"></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co">###if you are running an older version of R</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="co">#source(&quot;http://bioconductor.org/biocLite.R&quot;)</span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="co">#biocLite(c(&quot;limma&quot;,&quot;edgeR&quot;))</span></a></code></pre></div>
-<p>Use <code>ls()</code> function to view the list of objects provided with this db package and <code>columns()</code> function to discover which sorts of annotations can be extracted from the database. You can see that a mapping of hgu133 to GO exists which provides the relevent bimap data. Here we only focus only on Cellular Component (CC), alterbatively, Biological Process (BP) and Molecular Function (MF) can also be adopted.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(hgu133a.db)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw">ls</span>(<span class="st">&quot;package:hgu133a.db&quot;</span>)</a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="kw">columns</span>(hgu133a.db)</a>
-<a class="sourceLine" id="cb11-4" title="4"></a>
-<a class="sourceLine" id="cb11-5" title="5">gobimap&lt;-<span class="kw">toTable</span>(hgu133aGO)</a>
-<a class="sourceLine" id="cb11-6" title="6">gobimap&lt;-gobimap[gobimap<span class="op">$</span>Ontology<span class="op">==</span><span class="st">&quot;CC&quot;</span>,]</a>
-<a class="sourceLine" id="cb11-7" title="7"></a>
-<a class="sourceLine" id="cb11-8" title="8"><span class="kw">head</span>(gobimap)</a></code></pre></div>
-<p>The bimap is converted to a GOList in the required format as below.(As the GO is a large database, this can take a few seconds.)</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
-<a class="sourceLine" id="cb12-2" title="2">GOIDs&lt;-<span class="kw">unique</span>(gobimap<span class="op">$</span>go_id)</a>
-<a class="sourceLine" id="cb12-3" title="3">GOList&lt;-<span class="kw">lapply</span>(GOIDs,</a>
-<a class="sourceLine" id="cb12-4" title="4">               <span class="cf">function</span>(id) </a>
-<a class="sourceLine" id="cb12-5" title="5">                   gobimap<span class="op">$</span>probe_id[gobimap<span class="op">$</span>go_id<span class="op">==</span>id])</a>
-<a class="sourceLine" id="cb12-6" title="6"></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="kw">names</span>(GOList)&lt;-GOIDs</a>
-<a class="sourceLine" id="cb12-8" title="8"><span class="co">#head(GOList)</span></a>
-<a class="sourceLine" id="cb12-9" title="9"></a>
-<a class="sourceLine" id="cb12-10" title="10"><span class="co">#make sure the Ids are unique and the paths are non-empty </span></a>
-<a class="sourceLine" id="cb12-11" title="11">GOList&lt;-<span class="kw">lapply</span>(GOList, unique)</a>
-<a class="sourceLine" id="cb12-12" title="12">GOList &lt;-<span class="st"> </span><span class="kw">lapply</span>(GOList, <span class="cf">function</span>(path) <span class="cf">if</span> (<span class="kw">all</span>(<span class="kw">is.na</span>(path))) <span class="kw">character</span>(<span class="dv">0</span>) <span class="cf">else</span> path)</a>
-<a class="sourceLine" id="cb12-13" title="13"></a>
-<a class="sourceLine" id="cb12-14" title="14"><span class="co">#save(GOList, file=&quot;GOList.RData&quot;)</span></a></code></pre></div>
+<p>One standard format for annotation in <code>Bioconductor</code> is an
+annotation package. Annotation packages are readily available in
+Bioconductor for most commercial chip types. For custom-made arrays or
+for less frequently used platforms, it is possible to make your own
+annotation package using the <code>AnnBuilder</code> package.
+AnnotationDbi package is a key reference for learnign about how to use
+bimap objects. <code>AnnotationDbi</code> is used primarily to create
+mapping objects that allow easy access from <code>R</code> to underlying
+annotation databases. As such, it acts as the <code>R</code> interface
+for all the standard annotation packages. For more information read the
+help file of <code>AnnotationDbi</code>.</p>
+<p>To create the bimap for a microarray dataset done on Affymetrix
+hgu133a chips, install the <code>hgu133a.db</code> package. A relevent
+package can be used according to your data.</p>
+<p>Take the following steps to install the required bioconductor
+packages. For older versions of R, please refer to the appropriate
+Bioconductor release.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;hgu133a.db&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="do">###if you are running an older version of R</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#source(&quot;http://bioconductor.org/biocLite.R&quot;)</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#biocLite(c(&quot;limma&quot;,&quot;edgeR&quot;))</span></span></code></pre></div>
+<p>Use <code>ls()</code> function to view the list of objects provided
+with this db package and <code>columns()</code> function to discover
+which sorts of annotations can be extracted from the database. You can
+see that a mapping of hgu133 to GO exists which provides the relevent
+bimap data. Here we only focus only on Cellular Component (CC),
+alterbatively, Biological Process (BP) and Molecular Function (MF) can
+also be adopted.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">library</span>(hgu133a.db)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:hgu133a.db&quot;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">columns</span>(hgu133a.db)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>gobimap<span class="ot">&lt;-</span><span class="fu">toTable</span>(hgu133aGO)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>gobimap<span class="ot">&lt;-</span>gobimap[gobimap<span class="sc">$</span>Ontology<span class="sc">==</span><span class="st">&quot;CC&quot;</span>,]</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">head</span>(gobimap)</span></code></pre></div>
+<p>The bimap is converted to a GOList in the required format as
+below.(As the GO is a large database, this can take a few seconds.)</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>GOIDs<span class="ot">&lt;-</span><span class="fu">unique</span>(gobimap<span class="sc">$</span>go_id)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>GOList<span class="ot">&lt;-</span><span class="fu">lapply</span>(GOIDs,</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>               <span class="cf">function</span>(id) </span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>                   gobimap<span class="sc">$</span>probe_id[gobimap<span class="sc">$</span>go_id<span class="sc">==</span>id])</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="fu">names</span>(GOList)<span class="ot">&lt;-</span>GOIDs</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#head(GOList)</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#make sure the Ids are unique and the paths are non-empty </span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>GOList<span class="ot">&lt;-</span><span class="fu">lapply</span>(GOList, unique)</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>GOList <span class="ot">&lt;-</span> <span class="fu">lapply</span>(GOList, <span class="cf">function</span>(path) <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">is.na</span>(path))) <span class="fu">character</span>(<span class="dv">0</span>) <span class="cf">else</span> path)</span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#save(GOList, file=&quot;GOList.RData&quot;)</span></span></code></pre></div>
 </div>
 <div id="kegg-pathways" class="section level3">
 <h3>KEGG pathways</h3>
-<p>Th procdure for creating KEGG pathways is the same. Here we assume the data are from mice and entries are based on “entrez gene identifiers”. So we will use the <code>org.Mm.eg.db</code> package.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb13-2" title="2">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</a>
-<a class="sourceLine" id="cb13-3" title="3"></a>
-<a class="sourceLine" id="cb13-4" title="4">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;org.Mm.eg.db&quot;</span>)</a>
-<a class="sourceLine" id="cb13-5" title="5"></a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="kw">library</span>(org.Mm.eg.db)</a>
-<a class="sourceLine" id="cb13-7" title="7"><span class="kw">ls</span>(<span class="st">&quot;package:org.Mm.eg.db&quot;</span>)</a>
-<a class="sourceLine" id="cb13-8" title="8"><span class="kw">columns</span>(org.Hs.eg.db)</a></code></pre></div>
-<p>Here we create an indirect match between ENTREZID and PATH. You may get the warning that the mapping is 1 on many, then it is better to create the pathways using the IDs from your dataset and not the package. To do so, in the function below, replace the “keggbimap$ENTREZID” with the names of gene from your dataset. Another option is to use a manually corrected mapping of ENTREZID and PATH.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
-<a class="sourceLine" id="cb14-2" title="2"></a>
-<a class="sourceLine" id="cb14-3" title="3">uniKeys &lt;-<span class="st"> </span><span class="kw">keys</span>(org.Hs.eg.db, <span class="dt">keytype=</span><span class="st">&quot;ENTREZID&quot;</span>)</a>
-<a class="sourceLine" id="cb14-4" title="4">cols &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&quot;PATH&quot;</span>)</a>
-<a class="sourceLine" id="cb14-5" title="5"></a>
-<a class="sourceLine" id="cb14-6" title="6">keggbimap&lt;-<span class="kw">select</span>(org.Hs.eg.db, <span class="dt">keys=</span>uniKeys,</a>
-<a class="sourceLine" id="cb14-7" title="7">                  <span class="dt">columns=</span>cols, <span class="dt">keytype=</span><span class="st">&quot;ENTREZID&quot;</span>)</a>
-<a class="sourceLine" id="cb14-8" title="8"></a>
-<a class="sourceLine" id="cb14-9" title="9"><span class="kw">head</span>(keggbimap)</a>
-<a class="sourceLine" id="cb14-10" title="10"></a>
-<a class="sourceLine" id="cb14-11" title="11">keggIDs&lt;-<span class="kw">unique</span>(keggbimap<span class="op">$</span>PATH)</a>
-<a class="sourceLine" id="cb14-12" title="12">KEGGList&lt;-<span class="kw">lapply</span>(keggIDs,</a>
-<a class="sourceLine" id="cb14-13" title="13">                 <span class="cf">function</span>(id)</a>
-<a class="sourceLine" id="cb14-14" title="14">                    keggbimap<span class="op">$</span>ENTREZID[keggbimap<span class="op">$</span>PATH<span class="op">==</span>id])</a>
-<a class="sourceLine" id="cb14-15" title="15"><span class="kw">names</span>(KEGGList)&lt;-keggIDs</a>
-<a class="sourceLine" id="cb14-16" title="16"><span class="kw">head</span>(KEGGList)</a>
-<a class="sourceLine" id="cb14-17" title="17"></a>
-<a class="sourceLine" id="cb14-18" title="18"><span class="co">#make sure the Ids are unique and the paths are non-empty </span></a>
-<a class="sourceLine" id="cb14-19" title="19">KEGGList&lt;-<span class="kw">lapply</span>(KEGGList, unique)</a>
-<a class="sourceLine" id="cb14-20" title="20">KEGGList&lt;-<span class="kw">lapply</span>(KEGGList, <span class="cf">function</span>(path)</a>
-<a class="sourceLine" id="cb14-21" title="21">                  path[<span class="op">!</span><span class="kw">is.na</span>(path)])</a>
-<a class="sourceLine" id="cb14-22" title="22">KEGGList &lt;-<span class="st"> </span><span class="kw">lapply</span>(KEGGList,</a>
-<a class="sourceLine" id="cb14-23" title="23">                   <span class="cf">function</span>(path)</a>
-<a class="sourceLine" id="cb14-24" title="24">                       <span class="cf">if</span> (<span class="kw">all</span>(<span class="kw">is.na</span>(path))) <span class="kw">character</span>(<span class="dv">0</span>) <span class="cf">else</span> path)</a>
-<a class="sourceLine" id="cb14-25" title="25"></a>
-<a class="sourceLine" id="cb14-26" title="26"><span class="co">#save(KEGGList, file=&quot;KEGGList.RData&quot;)</span></a></code></pre></div>
+<p>Th procdure for creating KEGG pathways is the same. Here we assume
+the data are from mice and entries are based on “entrez gene
+identifiers”. So we will use the <code>org.Mm.eg.db</code> package.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;org.Mm.eg.db&quot;</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="fu">library</span>(org.Mm.eg.db)</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:org.Mm.eg.db&quot;</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="fu">columns</span>(org.Hs.eg.db)</span></code></pre></div>
+<p>Here we create an indirect match between ENTREZID and PATH. You may
+get the warning that the mapping is 1 on many, then it is better to
+create the pathways using the IDs from your dataset and not the package.
+To do so, in the function below, replace the “keggbimap$ENTREZID” with
+the names of gene from your dataset. Another option is to use a manually
+corrected mapping of ENTREZID and PATH.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>uniKeys <span class="ot">&lt;-</span> <span class="fu">keys</span>(org.Hs.eg.db, <span class="at">keytype=</span><span class="st">&quot;ENTREZID&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&quot;PATH&quot;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>keggbimap<span class="ot">&lt;-</span><span class="fu">select</span>(org.Hs.eg.db, <span class="at">keys=</span>uniKeys,</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>                  <span class="at">columns=</span>cols, <span class="at">keytype=</span><span class="st">&quot;ENTREZID&quot;</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="fu">head</span>(keggbimap)</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>keggIDs<span class="ot">&lt;-</span><span class="fu">unique</span>(keggbimap<span class="sc">$</span>PATH)</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>KEGGList<span class="ot">&lt;-</span><span class="fu">lapply</span>(keggIDs,</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>                 <span class="cf">function</span>(id)</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>                    keggbimap<span class="sc">$</span>ENTREZID[keggbimap<span class="sc">$</span>PATH<span class="sc">==</span>id])</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="fu">names</span>(KEGGList)<span class="ot">&lt;-</span>keggIDs</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="fu">head</span>(KEGGList)</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#make sure the Ids are unique and the paths are non-empty </span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>KEGGList<span class="ot">&lt;-</span><span class="fu">lapply</span>(KEGGList, unique)</span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>KEGGList<span class="ot">&lt;-</span><span class="fu">lapply</span>(KEGGList, <span class="cf">function</span>(path)</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>                  path[<span class="sc">!</span><span class="fu">is.na</span>(path)])</span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>KEGGList <span class="ot">&lt;-</span> <span class="fu">lapply</span>(KEGGList,</span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>                   <span class="cf">function</span>(path)</span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>                       <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">is.na</span>(path))) <span class="fu">character</span>(<span class="dv">0</span>) <span class="cf">else</span> path)</span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="co">#save(KEGGList, file=&quot;KEGGList.RData&quot;)</span></span></code></pre></div>
 </div>
 <div id="wikipathways" class="section level3">
 <h3>Wikipathways</h3>
 <p>Install the rwikipathways package from Github.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"></a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb15-3" title="3">    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</a>
-<a class="sourceLine" id="cb15-4" title="4"></a>
-<a class="sourceLine" id="cb15-5" title="5">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;rWikiPathways&quot;</span>)</a></code></pre></div>
-<p>In this final example we assume that the data are from human and based on “Ensembl” identifiers.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"></a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="co">#Matching the IDs to create list of wikipathways for metabs</span></a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="kw">library</span>(rWikiPathways)</a>
-<a class="sourceLine" id="cb16-4" title="4"></a>
-<a class="sourceLine" id="cb16-5" title="5">homoPathways&lt;-<span class="kw">listPathwayIds</span>(<span class="dt">organism=</span><span class="st">&quot;Homo sapiens&quot;</span>)</a>
-<a class="sourceLine" id="cb16-6" title="6">wikiList&lt;-<span class="kw">lapply</span>(homoPathways,</a>
-<a class="sourceLine" id="cb16-7" title="7">                <span class="cf">function</span>(x) </a>
-<a class="sourceLine" id="cb16-8" title="8">                    <span class="kw">getXrefList</span>(<span class="dt">pathway =</span> x, <span class="dt">systemCode=</span><span class="st">&quot;En&quot;</span>))</a>
-<a class="sourceLine" id="cb16-9" title="9"></a>
-<a class="sourceLine" id="cb16-10" title="10"><span class="kw">names</span>(wikiList)&lt;-homoPathways</a>
-<a class="sourceLine" id="cb16-11" title="11"></a>
-<a class="sourceLine" id="cb16-12" title="12"><span class="co">#make sure the Ids are unique and the paths are non-empty </span></a>
-<a class="sourceLine" id="cb16-13" title="13">wikiList&lt;-<span class="kw">lapply</span>(wikiList, unique)</a>
-<a class="sourceLine" id="cb16-14" title="14">wikiList &lt;-<span class="st"> </span><span class="kw">lapply</span>(wikiList, <span class="cf">function</span>(path) <span class="cf">if</span> (<span class="kw">all</span>(<span class="kw">is.na</span>(path))) <span class="kw">character</span>(<span class="dv">0</span>) <span class="cf">else</span> path)</a>
-<a class="sourceLine" id="cb16-15" title="15"></a>
-<a class="sourceLine" id="cb16-16" title="16"><span class="co">#save(wikiList, file=&quot;wikiList.RData&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;rWikiPathways&quot;</span>)</span></code></pre></div>
+<p>In this final example we assume that the data are from human and
+based on “Ensembl” identifiers.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co">#Matching the IDs to create list of wikipathways for metabs</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">library</span>(rWikiPathways)</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>homoPathways<span class="ot">&lt;-</span><span class="fu">listPathwayIds</span>(<span class="at">organism=</span><span class="st">&quot;Homo sapiens&quot;</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>wikiList<span class="ot">&lt;-</span><span class="fu">lapply</span>(homoPathways,</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>                <span class="cf">function</span>(x) </span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>                    <span class="fu">getXrefList</span>(<span class="at">pathway =</span> x, <span class="at">systemCode=</span><span class="st">&quot;En&quot;</span>))</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="fu">names</span>(wikiList)<span class="ot">&lt;-</span>homoPathways</span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#make sure the Ids are unique and the paths are non-empty </span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>wikiList<span class="ot">&lt;-</span><span class="fu">lapply</span>(wikiList, unique)</span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>wikiList <span class="ot">&lt;-</span> <span class="fu">lapply</span>(wikiList, <span class="cf">function</span>(path) <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">is.na</span>(path))) <span class="fu">character</span>(<span class="dv">0</span>) <span class="cf">else</span> path)</span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#save(wikiList, file=&quot;wikiList.RData&quot;)</span></span></code></pre></div>
 </div>
 </div>
 <div id="citing-rsea" class="section level2">
 <h2>Citing rSEA</h2>
 <p>If you use the rSEA package, please cite the following paper:</p>
 <ul>
-<li>Mitra Ebrahimpoor, Pietro Spitali, Kristina Hettne, Roula Tsonaka, Jelle Goeman, Simultaneous Enrichment Analysis of all Possible Gene-sets: Unifying Self-Contained and Competitive Methods, Briefings in Bioinformatics, bbz074, <a href="https://doi.org/10.1093/bib/bbz074" class="uri">https://doi.org/10.1093/bib/bbz074</a></li>
+<li>Mitra Ebrahimpoor, Pietro Spitali, Kristina Hettne, Roula Tsonaka,
+Jelle Goeman, Simultaneous Enrichment Analysis of all Possible
+Gene-sets: Unifying Self-Contained and Competitive Methods, Briefings in
+Bioinformatics, bbz074, <a href="https://doi.org/10.1093/bib/bbz074" class="uri">https://doi.org/10.1093/bib/bbz074</a></li>
 </ul>
 </div>
 </div>

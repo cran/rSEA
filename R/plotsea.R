@@ -1,7 +1,7 @@
 #' @title topSEA
 #'
 #' @description returns a plotof SEA-chart which illustrates
-#' roportion of discoveries per pathway.
+#' proportion of discoveries per pathway.
 #'
 #' @param object A SEA-chart object which is the output of \code{SEA} function
 #'
@@ -11,12 +11,13 @@
 #' @param threshold A real number between 0 and 1. Which will be used as
 #' a visual aid to distinguish significant pathways
 #'
-#' @param n Integer. Number of raws from SEA-chart object to be plotted.
+#' @param n Integer. Number of rows from SEA-chart object to be plotted.
 #'
 #'
 #' @return Returns a plot of SEA_chart according to the selected arguments
 #'
-#'
+#' @importFrom ggplot2 aes geom_bar geom_text coord_flip scale_y_continuous
+#'  theme_bw geom_hline xlab ylab
 #' @author Mitra Ebrahimpoor
 #'
 #' \email{m.ebrahimpoor@@lumc.nl}
@@ -33,8 +34,7 @@
 #'
 #' @export
 #'
-#' @importFrom ggplot2 ggplot aes coord_flip geom_bar geom_hline
-#' geom_text scale_y_continuous theme_bw xlab ylab
+#' @importFrom ggplot2 ggplot
 #'
 #'
 plotSEA=plotsea<- function(object, by="TDP.estimate", threshold=0.005, n=20){
@@ -62,15 +62,15 @@ if(threshold>val)
 if(nrow(object)<n)
   stop(paste("Data has",nrow(object),"rows","can not select",n))
 
-val<-val+0.02
+val<-val+0.005
 
 seabar<-ggplot(object, aes(x = object[,"Name"],
                            y = as.numeric(object[,by]))) +
      geom_bar(stat = "identity",color="grey80") +
-     geom_text(aes(label=object[,"Size"], y = threshold+0.02), color="black") +
+     geom_text(aes(label=object[,"Size"], y = threshold+0.01), color="black") +
      coord_flip() +
-     scale_y_continuous(limits = c(0, val),breaks = seq(0, val, round(val/10,3)),
-                     labels = abs(seq(0, val, round(val/10,3)))) +
+     scale_y_continuous(limits = c(0, val),breaks = seq(0, val, 0.01),
+                     labels = abs(seq(0, val, 0.01))) +
      theme_bw()+
      geom_hline(yintercept=threshold, linetype="dashed",
                 color = "black", size=0.5)+

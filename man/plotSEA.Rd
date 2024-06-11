@@ -15,17 +15,17 @@ It should be either the TDP estimate or TDP bound.The default is TDP bound.}
 \item{threshold}{A real number between 0 and 1. Which will be used as
 a visual aid to distinguish significant pathways}
 
-\item{n}{Integer. Number of raws from SEA-chart object to be plotted.}
+\item{n}{Integer. Number of rows from SEA-chart object to be plotted.}
 }
 \value{
 Returns a plot of SEA_chart according to the selected arguments
 }
 \description{
 returns a plotof SEA-chart which illustrates
-roportion of discoveries per pathway.
+proportion of discoveries per pathway.
 }
 \examples{
-#See the examples for \\code{\\link{SEA}}
+#See the examples for \code{\link{SEA}}
 
 }
 \references{

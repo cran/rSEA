@@ -77,9 +77,8 @@
 #' #sort the list by competitve p-value and select top 2
 #' topSEA(S2, by=Comp.adjP, descending = FALSE, n=2)
 #'
-#' #make an enrichment plot based on TDP.estimated of te pathways
-#' #here pathways with more than 20% active signials will be identified
-#' plotSEA(S1,threshold = 0.20,n=3)
+#' #make an enrichment plot based on TDP.estimated of pathways
+#' plotSEA(S1,n=3)
 #' }
 #' @export
 #'
